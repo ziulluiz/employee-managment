@@ -11,15 +11,25 @@ export function searchCustomers (){
 
 export function removeCustomer(id: string){
     let customers = searchCustomers();
-    let index = customers.findIndex((customer:any) => customer.id == id)
+    let index = customers.findIndex((customer: Customer) => customer.id == id)
     customers.splice(index, 1);
     localStorage['customers'] = JSON.stringify(customers)
 
 }
 
-export function saveCustomer(customer:Customer){
+export function saveCustomer(customer: Customer){
     let customers = searchCustomers();
-    customers.push(customer);
+    if(customer.id){
+        let index = customers.findIndex((c: Customer) => c.id == customer.id);
+        customers[index] = customer;
+    } else {
+        customer.id = String(Math.round(Math.random()* 100000));
+        customers.push(customer);
+    }
     localStorage['customers'] = JSON.stringify(customers)
-    console.log(localStorage['customers'])
+}
+
+export function searchCustomerById(id: string) {
+    let customers = searchCustomers();
+    return customers.find((customer: any) => customer.id == id)
 }

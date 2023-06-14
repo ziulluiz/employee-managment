@@ -2,8 +2,8 @@ import { IonButton, IonButtons, IonCard, IonCol, IonContent, IonGrid, IonHeader,
 import { add, close, pencil } from 'ionicons/icons';
 import { useEffect, useState } from 'react';
 import { useHistory, useParams } from 'react-router';
-import { removeCustomer, saveCustomer, searchCustomers } from './CustomerApi';
-import Customer from './Customer';
+import { removeCustomer, saveCustomer, searchCustomers } from './EmployeeApi';
+import Customer from './Employee';
 
 const CustomerList: React.FC = (props: any) => {
   const { name } = useParams<{ name: string; }>();
@@ -14,8 +14,8 @@ const CustomerList: React.FC = (props: any) => {
     search();
   }, [history.location.pathname]);
 
-  const search = async () => {
-    let result = await searchCustomers();
+  const search = () => {
+    let result = searchCustomers();
     setCustomer(result);
   }
 
@@ -24,8 +24,9 @@ const CustomerList: React.FC = (props: any) => {
     search();
   }
 
-  const addCustomer = async () => {
-    await history.push('/page/customer/new');
+  const addCustomer = () => {
+
+    history.push('/page/customer/new');
   }
 
   const editCustomer = (id: string) => {
@@ -71,21 +72,21 @@ const CustomerList: React.FC = (props: any) => {
                 <IonCol>Options</IonCol>
               </IonRow>
 
-              {customers.map((customer: Customer) =>
+              {customers.map((cliente: Customer) =>
                 <IonRow>
-                  <IonCol>{customer.id}</IonCol>
-                  <IonCol>{customer.firstname} {customer.lastname}</IonCol>
-                  <IonCol>{customer.email}</IonCol>
-                  <IonCol>{customer.phone}</IonCol>
-                  <IonCol>{customer.address}</IonCol>
+                  <IonCol>{cliente.id}</IonCol>
+                  <IonCol>{cliente.firstname} {cliente.lastname}</IonCol>
+                  <IonCol>{cliente.email}</IonCol>
+                  <IonCol>{cliente.phone}</IonCol>
+                  <IonCol>{cliente.address}</IonCol>
                   <IonCol>
                     <IonButton color="primary" fill="clear"
-                      onClick={() => editCustomer(String(customer.id))}>
+                      onClick={() => editCustomer(String(cliente.id))}>
                       <IonIcon icon={pencil} slot="icon-only" />
                     </IonButton>
 
                     <IonButton color="danger" fill="clear"
-                      onClick={() => remove(String(customer.id))}>
+                      onClick={() => remove(String(cliente.id))}>
                       <IonIcon icon={close} slot="icon-only" />
                     </IonButton>
                   </IonCol>
