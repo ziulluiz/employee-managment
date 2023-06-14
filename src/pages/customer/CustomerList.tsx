@@ -3,23 +3,19 @@ import { add, close, pencil } from 'ionicons/icons';
 import { useEffect, useState } from 'react';
 import { useHistory, useParams } from 'react-router';
 import { removeCustomer, saveCustomer, searchCustomers } from './CustomerApi';
-// import Customer from './CustomerList';
-// import { removeCustomer, searchCustomers } from './CustomerApi';
-
+import Customer from './Customer';
 
 const CustomerList: React.FC = (props: any) => {
   const { name } = useParams<{ name: string; }>();
-  const [Customers, setCustomer] = useState<any>([]);
+  const [customers, setCustomer] = useState<Customer[]>([]);
   const history = useHistory();
 
   useEffect(() => {
     search();
   }, [history.location.pathname]);
 
-  const search = async () => {
-    searchCustomers();
-    // setCustomer(datosEjemplo);
-    let result = await searchCustomers();
+  const search = () => {
+    let result = searchCustomers();
     setCustomer(result);
   }
 
@@ -29,6 +25,7 @@ const CustomerList: React.FC = (props: any) => {
   }
 
   const addCustomer = () => {
+
     history.push('/page/customer/new');
   }
 
@@ -38,6 +35,7 @@ const CustomerList: React.FC = (props: any) => {
 
   const pruebaLocalStorage = () => {
     const ejemplo = {
+      id: '1',
       firstname: 'Luis',
       lastname: 'Guzman',
       email: 'luis.com',
@@ -73,33 +71,23 @@ const CustomerList: React.FC = (props: any) => {
             <IonItem>
               <IonButton onClick={addCustomer} color="primary" fill="solid" slot="end" size="default">
                 <IonIcon icon={add} />
-                Agregar Cliente
+                Add client
               </IonButton>
             </IonItem>
 
             <IonGrid className="table">
               <IonRow>
-                <IonCol>Nombre</IonCol>
+                <IonCol>id</IonCol>
+                <IonCol>Name</IonCol>
                 <IonCol>Email</IonCol>
-                <IonCol>Teléfono</IonCol>
-                <IonCol>Dirección</IonCol>
-                <IonCol>Acciones</IonCol>
+                <IonCol>Phone</IonCol>
+                <IonCol>Address</IonCol>
+                <IonCol>Options</IonCol>
               </IonRow>
 
-              {/* {Customers.map(customer => 
+              {customers.map((cliente: Customer) =>
                 <IonRow>
-                  <IonCol>{customer.firstname} {cliente.lastname}</IonCol>
-                  <IonCol>{customer.email}</IonCol>
-                  <IonCol>{customer.phone}</IonCol>
-                  <IonCol>{.address}</IonCol>
-                  <IonCol>
-                
-                )} */}
-
-
-
-              {Customers.map((cliente: any) =>
-                <IonRow>
+                  <IonCol>{cliente.id}</IonCol>
                   <IonCol>{cliente.firstname} {cliente.lastname}</IonCol>
                   <IonCol>{cliente.email}</IonCol>
                   <IonCol>{cliente.phone}</IonCol>

@@ -1,5 +1,6 @@
-export function searchCustomers (){
+import Customer from "./Customer";
 
+export function searchCustomers (){
     if(!localStorage['customers']){
         localStorage['customers'] = '[]';
     }
@@ -16,9 +17,9 @@ export function removeCustomer(id: string){
 
 }
 
-export function saveCustomer(customer:any){
+export function saveCustomer(customer:Customer){
     let customers = searchCustomers();
     customers.push(customer);
     localStorage['customers'] = JSON.stringify(customers)
-
+    console.log(localStorage['customers'])
 }
