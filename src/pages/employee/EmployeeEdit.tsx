@@ -31,7 +31,7 @@ const EmployeeEdit: React.FC = () => {
   const save = async () => {
     await saveEmployee(employee);
     history.push('/page/employees');
-    location.reload()
+    // location.reload()
   }
 
 
