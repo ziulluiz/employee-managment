@@ -26,11 +26,10 @@ export function saveEmployee(employee: Employee){
         employee.employee_id = String(Math.round(Math.random()* 100000));
         employees.push(employee);
     }
-    localStorage['customers'] = JSON.stringify(employees)
-    console.log(localStorage['customers'])
+    localStorage['employees'] = JSON.stringify(employees)
 }
 
-export function searchCustomerById(id: string) {
-    let customers = searchEmployees();
-    return customers.find((customer: any) => customer.id == id)
+export function searchEmployeeById(id: string) {
+    let employees = searchEmployees();
+    return employees.find((employee: any) => employee.id == id)
 }

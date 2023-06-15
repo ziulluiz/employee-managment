@@ -1,18 +1,18 @@
-import { IonButton, IonButtons, IonCard, IonCol, IonContent, IonGrid, IonHeader, IonIcon, IonInput, IonItem, IonLabel, IonMenuButton, IonPage, IonRow, IonTitle, IonToolbar } from '@ionic/react';
+import { IonButton, IonButtons, IonCard, IonCol, IonContent, IonHeader, IonIcon, IonInput, IonItem, IonLabel, IonMenuButton, IonPage, IonRow, IonTitle, IonToolbar } from '@ionic/react';
 import { checkmark } from 'ionicons/icons';
 import { useEffect, useState } from 'react';
 import { useHistory, useParams, useRouteMatch} from 'react-router';
-import { saveEmployee, searchEmployeeById } from './EmployeeApi';
-import Employee from './Employee';
+import { saveSupplier, searchSupplierById } from './SupplierApi';
+import Supplier from './Supplier';
 
 
-const EmployeeEdit: React.FC = () => {
+const SupplierEdit: React.FC = () => {
   
     const { name} = useParams<{ name: string; }>();
-    const [employee, setEmployee] = useState<Employee>({});
+    const [supplier, setSupplier] = useState<Supplier>({});
     const history = useHistory();
 
-    const routeMatch: any = useRouteMatch("/page/employee/:id");
+    const routeMatch: any = useRouteMatch("/page/supplier/:id");
     const id = routeMatch?.params?.id;
 
   useEffect(() => {
@@ -21,17 +21,17 @@ const EmployeeEdit: React.FC = () => {
 
   const search = async () => {
     if (id === 'new') {
-      setEmployee({});
+      setSupplier({});
     } else {
-      let result = await searchEmployeeById(id);
-      setEmployee(result);
+      let result = await searchSupplierById(id);
+      setSupplier(result);
     }
   }
 
-  const save = async () => {
-    await saveEmployee(employee);
-    history.push('/page/employees');
-    location.reload()
+  const save = () => {
+    saveSupplier(supplier);
+    history.push('/page/suppliers');
+    // location.reload()
   }
 
 
@@ -55,24 +55,16 @@ const EmployeeEdit: React.FC = () => {
 
         <IonContent>
           <IonCard>
-            <IonTitle>{id == 'new' ? 'New Employee' : 'Edit Employee' } </IonTitle>
+            <IonTitle>{id == 'new' ? 'New Supplier' : 'Edit Supplier' } </IonTitle>
 
             <IonRow>
                 <IonCol>
                   <IonItem>
                     <IonInput 
                       label="Name" labelPlacement="stacked" placeholder="Enter text"
-                      onIonChange={e => employee.name = String(e.detail.value)} value = {employee.name}>
-                      </IonInput>
-                  </IonItem>  
-                </IonCol>
-                <IonCol>
-                  <IonItem>
-                    <IonInput 
-                      label="Salary" labelPlacement="stacked" placeholder="Enter text" 
-                      onIonChange={e => employee.salary= String(e.detail.value)} value = {employee.salary}>
+                      onIonChange={e => supplier.name = String(e.detail.value)} value = {supplier.name}>
                     </IonInput>
-                  </IonItem>
+                  </IonItem>  
                 </IonCol>
             </IonRow>
             <IonRow>
@@ -80,7 +72,7 @@ const EmployeeEdit: React.FC = () => {
                   <IonItem>
                       <IonInput 
                         label="Phone" labelPlacement="stacked" placeholder="Enter text"
-                        onIonChange={e => employee.phone = String(e.detail.value)} value = {employee.phone}>
+                        onIonChange={e => supplier.phone = String(e.detail.value)} value = {supplier.phone}>
                       </IonInput>
                   </IonItem>
                 </IonCol>
@@ -88,7 +80,7 @@ const EmployeeEdit: React.FC = () => {
                   <IonItem>
                       <IonInput 
                         label="Address" labelPlacement="stacked" placeholder="Enter text"
-                        onIonChange={e => employee.address = String(e.detail.value)} value = {employee.address}>
+                        onIonChange={e => supplier.address = String(e.detail.value)} value = {supplier.address}>
                       </IonInput>
                   </IonItem>
                 </IonCol>
@@ -98,7 +90,7 @@ const EmployeeEdit: React.FC = () => {
                   <IonItem>
                       <IonInput
                         label="Email" labelPlacement="stacked" placeholder="Enter text"
-                        onIonChange={e => employee.email = String(e.detail.value)} value = {employee.email}>
+                        onIonChange={e => supplier.email = String(e.detail.value)} value = {supplier.email}>
                         </IonInput>
                   </IonItem>
                 </IonCol>
@@ -116,4 +108,4 @@ const EmployeeEdit: React.FC = () => {
   );
 };
 
-export default EmployeeEdit;
+export default SupplierEdit;

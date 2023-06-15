@@ -1,4 +1,4 @@
-import { IonButton, IonButtons, IonCard, IonCol, IonContent, IonGrid, IonHeader, IonIcon, IonInput, IonItem, IonLabel, IonMenuButton, IonPage, IonRow, IonTitle, IonToolbar } from '@ionic/react';
+import { IonButton, IonButtons, IonCard, IonCol, IonContent, IonHeader, IonIcon, IonInput, IonItem, IonLabel, IonMenuButton, IonPage, IonRow, IonTitle, IonToolbar } from '@ionic/react';
 import { checkmark } from 'ionicons/icons';
 import { useEffect, useState } from 'react';
 import { useHistory, useParams, useRouteMatch} from 'react-router';
@@ -33,7 +33,6 @@ const CustomerEdit: React.FC = () => {
     history.push('/page/Customer');
     location.reload()
   }
-
 
   return (
     <IonPage>
@@ -103,12 +102,6 @@ const CustomerEdit: React.FC = () => {
                   </IonItem>
                 </IonCol>
               </IonRow>
-
-
-
-
-
-
             <IonItem>
               <IonButton onClick={save} color="success" fill="solid" slot="end" size="default">
                 <IonIcon icon={checkmark} />

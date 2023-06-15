@@ -2,12 +2,12 @@ import { IonButton, IonButtons, IonCard, IonCol, IonContent, IonGrid, IonHeader,
 import { add, close, pencil } from 'ionicons/icons';
 import { useEffect, useState } from 'react';
 import { useHistory, useParams } from 'react-router';
-import { removeCustomer, searchCustomers } from './CustomerApi';
-import Customer from './Customer';
+import { removeSupplier, searchSuppliers } from './SupplierApi';
+import Supplier from './Supplier';
 
-const CustomerList: React.FC = (props: any) => {
+const SupplierList: React.FC = (props: any) => {
   const { name } = useParams<{ name: string; }>();
-  const [customers, setCustomer] = useState<Customer[]>([]);
+  const [suppliers, setSupplier] = useState<Supplier[]>([]);
   const history = useHistory();
 
   useEffect(() => {
@@ -15,21 +15,21 @@ const CustomerList: React.FC = (props: any) => {
   }, [history.location.pathname]);
 
   const search = async () => {
-    let result = await searchCustomers();
-    setCustomer(result);
+    let result = await searchSuppliers();
+    setSupplier(result);
   }
 
   const remove = async (id: string) => {
-    await removeCustomer(id);
+    await removeSupplier(id);
     search();
   }
 
-  const addCustomer = async () => {
-    await history.push('/page/customer/new');
+  const addSupplier = async () => {
+    await history.push('/page/supplier/new');
   }
 
-  const editCustomer = (id: string) => {
-    history.push('/page/customer/' + id);
+  const editSupplier = (id: string) => {
+    history.push('/page/supplier/' + id);
   }
 
   return (
@@ -52,10 +52,10 @@ const CustomerList: React.FC = (props: any) => {
 
         <IonContent>
           <IonCard>
-            <IonTitle>Customers</IonTitle>
+            <IonTitle>Suppliers</IonTitle>
 
             <IonItem>
-              <IonButton onClick={addCustomer} color="primary" fill="solid" slot="end" size="default">
+              <IonButton onClick={addSupplier} color="primary" fill="solid" slot="end" size="default">
                 <IonIcon icon={add} />
                 Add client
               </IonButton>
@@ -71,21 +71,21 @@ const CustomerList: React.FC = (props: any) => {
                 <IonCol>Options</IonCol>
               </IonRow>
 
-              {customers.map((customer: Customer) =>
+              {suppliers.map((supplier: Supplier) =>
                 <IonRow>
-                  <IonCol>{customer.id}</IonCol>
-                  <IonCol>{customer.firstname} {customer.lastname}</IonCol>
-                  <IonCol>{customer.email}</IonCol>
-                  <IonCol>{customer.phone}</IonCol>
-                  <IonCol>{customer.address}</IonCol>
+                  <IonCol>{supplier.supplier_id}</IonCol>
+                  <IonCol>{supplier.name} {supplier.name}</IonCol>
+                  <IonCol>{supplier.email}</IonCol>
+                  <IonCol>{supplier.phone}</IonCol>
+                  <IonCol>{supplier.address}</IonCol>
                   <IonCol>
                     <IonButton color="primary" fill="clear"
-                      onClick={() => editCustomer(String(customer.id))}>
+                      onClick={() => editSupplier(String(supplier.supplier_id))}>
                       <IonIcon icon={pencil} slot="icon-only" />
                     </IonButton>
 
                     <IonButton color="danger" fill="clear"
-                      onClick={() => remove(String(customer.id))}>
+                      onClick={() => remove(String(supplier.supplier_id))}>
                       <IonIcon icon={close} slot="icon-only" />
                     </IonButton>
                   </IonCol>
@@ -99,4 +99,4 @@ const CustomerList: React.FC = (props: any) => {
   );
 };
 
-export default CustomerList;
+export default SupplierList;
