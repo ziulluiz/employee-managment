@@ -72,9 +72,10 @@ const SupplierList: React.FC = (props: any) => {
               </IonRow>
 
               {suppliers.map((supplier: Supplier) =>
-                <IonRow>
+                
+                <IonRow key={supplier.supplier_id}>
                   <IonCol>{supplier.supplier_id}</IonCol>
-                  <IonCol>{supplier.name} {supplier.name}</IonCol>
+                  <IonCol>{supplier.name} </IonCol>
                   <IonCol>{supplier.email}</IonCol>
                   <IonCol>{supplier.phone}</IonCol>
                   <IonCol>{supplier.address}</IonCol>

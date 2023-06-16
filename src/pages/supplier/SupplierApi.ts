@@ -1,35 +1,52 @@
 import Supplier from "./Supplier";
 
-export function searchSuppliers (){
-    if(!localStorage['suppliers']){
-        localStorage['suppliers'] = '[]';
+export async function searchSuppliers (){
+    let url = 'http://localhost:8080/api/'+ 'suppliers'
+    let response = await fetch(url, {
+      "method": 'GET',
+      "headers": {
+        "Content-Type": 'application/json'
+      }
+    })
+    return await response.json();
+}
+
+export async function removeSupplier(id: string){
+    let url = 'http://localhost:8080/api/'+ 'suppliers/' + id
+    let response = await fetch(url, {
+      "method": 'DELETE',
+      "headers": {
+        "Content-Type": 'application/json'
+      }
+    })
+    return await response.json();
+}
+
+export async function saveSupplier(supplier: Supplier){
+
+    try {
+        let url = 'http://localhost:8080/api/'+ 'suppliers'
+    await fetch(url, {
+      "method": 'POST',
+      "body": JSON.stringify(supplier),
+      "headers": {
+        "Content-Type": 'application/json'
+      }
+    })
+    } catch (error) {
+        console.log('este es un error de '+error)
     }
-    let suppliers = localStorage['suppliers'];
-    suppliers = JSON.parse(suppliers);
-    return suppliers;
+    
 }
 
-export function removeSupplier(id: string){
-    let suppliers = searchSuppliers();
-    let index = suppliers.findIndex((supplier: Supplier) => supplier.supplier_id == id)
-    suppliers.splice(index, 1);
-    localStorage['suppliers'] = JSON.stringify(suppliers)
-
-}
-
-export function saveSupplier(supplier: Supplier){
-    let suppliers = searchSuppliers();
-    if(supplier.supplier_id){
-        let index = suppliers.findIndex((c: Supplier) => c.supplier_id == supplier.supplier_id);
-        suppliers[index] = supplier;
-    } else {
-        supplier.supplier_id = String(Math.round(Math.random()* 100000));
-        suppliers.push(supplier);
-    }
-    localStorage['suppliers'] = JSON.stringify(suppliers)
-}
-
-export function searchSupplierById(id: string) {
-    let suppliers = searchSuppliers();
-    return suppliers.find((supplier: any) => supplier.id == id)
+export async function searchSupplierById(id: string) {
+    let url = 'http://localhost:8080/api/'+ 'suppliers/' + id
+    let response = await fetch(url, {
+      "method": 'GET',
+      "headers": {
+        "Content-Type": 'application/json'
+      }
+    })
+  
+    return await response.json();
 }

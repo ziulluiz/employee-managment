@@ -1,3 +1,4 @@
+import { ExceptionCode } from "@capacitor/core";
 import Employee from "./Employee";
 
 export async function searchEmployees (){
@@ -23,7 +24,7 @@ export async function removeEmployee(id: string){
 
 }
 
-export async function saveEmployee(employee: Employee){
+export async function saveEmployee(employee: Employee) {
     let url = 'http://localhost:8080/api/'+ 'employee'
     await fetch(url, {
       "method": 'POST',
