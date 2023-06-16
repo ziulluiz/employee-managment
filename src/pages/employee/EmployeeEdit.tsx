@@ -20,13 +20,11 @@ const EmployeeEdit: React.FC = () => {
   }, [history.location.pathname]);
 
   const search = async () => {
-    if (id === 'new') {
-      setEmployee({});
-    } else {
-      let result = await searchEmployeeById(id);
-      setEmployee(result);
+      if (id !== 'new') {
+        let result = await searchEmployeeById(id);
+        setEmployee(result)
+      } 
     }
-  }
 
   const save = async () => {
     await saveEmployee(employee);

@@ -1,36 +1,47 @@
-// import Employee from "./Employee";
 import Employee from "./Employee";
 
-export function searchEmployees (){
-    if(!localStorage['employees']){
-        localStorage['employees'] = '[]';
-    }
-    let employees = localStorage['employees'];
-    employees = JSON.parse(employees);
-    return employees;
+export async function searchEmployees (){
+    let url = 'http://localhost:8080/api/'+ 'employees'
+    let response = await fetch(url, {
+      "method": 'GET',
+      "headers": {
+        "Content-Type": 'application/json'
+      }
+    })
+    return await response.json();
 }
 
-export function removeEmployee(id: string){
-    let employees = searchEmployees();
-    let index = employees.findIndex((employee: Employee) => employee.employee_id == id)
-    employees.splice(index, 1);
-    localStorage['employees'] = JSON.stringify(employees)
+export async function removeEmployee(id: string){
+    let url = 'http://localhost:8080/api/'+ 'employees/' + id
+    let response = await fetch(url, {
+      "method": 'DELETE',
+      "headers": {
+        "Content-Type": 'application/json'
+      }
+    })
+    return await response.json();
 
 }
 
-export function saveEmployee(employee: Employee){
-    let employees = searchEmployees();
-    if(employee.employee_id){
-        let index = employees.findIndex((c: Employee) => c.employee_id == employee.employee_id);
-        employees[index] = employee;
-    } else {
-        employee.employee_id = String(Math.round(Math.random()* 100000));
-        employees.push(employee);
-    }
-    localStorage['employees'] = JSON.stringify(employees)
+export async function saveEmployee(employee: Employee){
+    let url = 'http://localhost:8080/api/'+ 'employee'
+    await fetch(url, {
+      "method": 'POST',
+      "body": JSON.stringify(employee),
+      "headers": {
+        "Content-Type": 'application/json'
+      }
+    })
 }
 
-export function searchEmployeeById(id: string) {
-    let employees = searchEmployees();
-    return employees.find((employee: any) => employee.id == id)
+export async function searchEmployeeById(id: string) {
+    let url = 'http://localhost:8080/api/'+ 'employees/' + id
+    let response = await fetch(url, {
+      "method": 'GET',
+      "headers": {
+        "Content-Type": 'application/json'
+      }
+    })
+  
+    return await response.json();
 }

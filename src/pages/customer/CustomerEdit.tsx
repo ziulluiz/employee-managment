@@ -2,7 +2,7 @@ import { IonButton, IonButtons, IonCard, IonCol, IonContent, IonHeader, IonIcon,
 import { checkmark } from 'ionicons/icons';
 import { useEffect, useState } from 'react';
 import { useHistory, useParams, useRouteMatch} from 'react-router';
-import { removeCustomer, saveCustomer, searchCustomerById } from './CustomerApi';
+import { saveCustomer, searchCustomerById } from './CustomerApi';
 import Customer from './Customer';
 
 
