@@ -15,16 +15,17 @@ export async function searchCustomers() {
 export async function removeCustomer(id: string){
     let url = 'http://localhost:8080/api/'+ 'customers/' + id
     let response = await fetch(url, {
-      "method": 'GET',
+      "method": 'DELETE',
       "headers": {
         "Content-Type": 'application/json'
       }
     })
+    return await response.json();
 }
 
 export async function saveCustomer(customer: Customer){
     let url = 'http://localhost:8080/api/'+ 'customers'
-    ~~await fetch(url, {
+    await fetch(url, {
       "method": 'POST',
       "body": JSON.stringify(customer),
       "headers": {
@@ -34,7 +35,7 @@ export async function saveCustomer(customer: Customer){
   }
 
 export async function searchCustomerById(id: string) {
-    let url = 'http://localhost:8080/api/'+ 'customers' + id
+    let url = 'http://localhost:8080/api/'+ 'customers/' + id
     let response = await fetch(url, {
       "method": 'GET',
       "headers": {

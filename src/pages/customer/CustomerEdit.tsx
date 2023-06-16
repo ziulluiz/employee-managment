@@ -8,7 +8,7 @@ import Customer from './Customer';
 
 const CustomerEdit: React.FC = () => {
   
-    const { name} = useParams<{ name: string; }>();
+    const { name } = useParams<{ name: string; }>();
     const [customer, setCustomer] = useState<Customer>({});
     const history = useHistory();
 
@@ -20,12 +20,10 @@ const CustomerEdit: React.FC = () => {
   }, [history.location.pathname]);
 
   const search = async () => {
-    if (id === 'new') {
-      setCustomer({});
-    } else {
+    if (id !== 'new') {
       let result = await searchCustomerById(id);
-      setCustomer(result);
-    }
+      setCustomer(result)
+    } 
   }
 
   const save = async () => {
